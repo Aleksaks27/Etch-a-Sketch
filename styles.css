@@ -1,0 +1,26 @@
+#canvas {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 400px;
+    /* border: 2px solid rgb(218, 217, 217) */
+}
+
+.line {
+    display: flex;
+    flex-direction: row;
+    width: 400px;
+    height: 25px;
+}
+
+.pixel {
+    width: 25px;
+    height: 25px;
+    background-color: white;
+}
+
+.start {}
+
+.change {
+    background-color: black;
+}
