@@ -1,12 +1,7 @@
-// Using javascript, we want the user to choose a certain grid size
-// This grid will consist of div elements in a square arrangement
-// When the user clicks or hovers over one of these squares, the colour should change
-// There could be some additional functionality which allows the user to draw with
-// different colours and perhaps erase the board entirely.
-
 const canvas = document.querySelector("#canvas");
 const clear = document.querySelector("#clear");
 const input = document.querySelector("#size");
+const colorChooser = document.querySelector("#colorChooser");
 
 function createGrid(size, pixelSize) {
     for (let i = 1; i <= size; i++) {
@@ -25,10 +20,10 @@ function createGrid(size, pixelSize) {
 
 function draw() {
     const pixels = document.querySelectorAll(".pixel");
-    pixels.forEach(pixel => pixel.addEventListener("click", () => {
-        pixel.classList.add("draw");
-    }))
-}
+    pixels.forEach(pixel => pixel.addEventListener("mouseover", () => {
+        pixel.style.backgroundColor = "black";
+    })
+)}
 
 function erase() {
     const pixels = document.querySelectorAll(".pixel");
@@ -37,21 +32,35 @@ function erase() {
     lines.forEach(line => line.remove())
 }
 
+function changeColor(color) {
+    const pixels = document.querySelectorAll(".pixel");
+    pixels.forEach(pixel => pixel.addEventListener("mouseover", () => {
+        pixel.style.backgroundColor = `${color}`;
+    })
+)}
+
 function initialize() {
     let size = input.value;
-    let pixelSize = (400/size);
+    if (size > 100) size = 100;
+    let pixelSize = (450/size);
     createGrid(size, pixelSize);
     draw();
 }
 
 input.addEventListener("change", () => {
     erase();
-    initialize()
+    initialize();
+    changeColor(colorChooser.value);
 });
 
 clear.addEventListener("click", () => {
     erase();
     initialize();
+    changeColor(colorChooser.value);
 });
+
+colorChooser.addEventListener("change", () => {
+    changeColor(colorChooser.value);
+})
 
 initialize();
